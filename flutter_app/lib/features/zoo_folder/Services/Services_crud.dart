@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import '../data/Models/Ticket.dart';
 
 class Services {
-  static const ROOT = 'http://192.168.100.80:8000/api/tickets/';
+  static const ROOT = 'http://192.168.2.107:8000/api/tickets/';
   static const _CREATE_TABLE_ACTION = 'CREATE_TABLE';
   static const _GET_ALL_ACTION = 'GET_ALL';
   static const _ADD_EMP_ACTION = 'ADD_EMP';
