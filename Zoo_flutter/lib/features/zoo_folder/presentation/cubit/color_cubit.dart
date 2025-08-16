@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:zoo/features/zoo_folder/presentation/Widgets/app_themes.dart';
+import '../Widgets/app_themes.dart';
 part 'Theme_state.dart';
 
 class ThemeCubit extends Cubit<ThemeState> {

@@ -1,9 +1,7 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:zoo/features/zoo_folder/presentation/Screens/register_screen.dart';
-import 'package:zoo/features/zoo_folder/Services/local_notifications.dart';
+import 'register_screen.dart';
 
 class onBoarding extends StatefulWidget {
   const onBoarding({Key? key}) : super(key: key);
@@ -76,8 +74,7 @@ class _onBoardingState extends State<onBoarding> {
       bottomSheet: isLastPage
           ? TextButton(
               style: TextButton.styleFrom(
-                  primary: Colors.white,
-                  backgroundColor: Colors.green,
+                  foregroundColor: Colors.white, backgroundColor: Colors.green,
                   minimumSize: Size.fromHeight(80)),
               onPressed: () async {
                 final preferences = await SharedPreferences.getInstance();

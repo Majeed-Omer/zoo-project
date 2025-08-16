@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class animal_details extends StatefulWidget {
   String p;
   String n;

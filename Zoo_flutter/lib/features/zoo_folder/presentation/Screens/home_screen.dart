@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import 'package:zoo/features/zoo_folder/presentation/Screens/allAnimals_scrren.dart';
+import 'allAnimals_scrren.dart';
 
 import 'animals_details.dart';
 
@@ -9,6 +9,7 @@ class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _HomeState createState() => _HomeState();
 }
 
@@ -63,10 +64,9 @@ class _HomeState extends State<Home> {
         ),
       );
 
-      void animateToSlide(int index) => controller.animateToPage(index);
+      void animateToSlide(int index) => controller.animateTo(index.toDouble(), duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
   Widget buildIndicator() { 
     final h = MediaQuery.of(context).size.height;
-    final w = MediaQuery.of(context).size.width;
     return AnimatedSmoothIndicator(
         activeIndex: activateIndex,
         count: sliderImages.length,
@@ -81,10 +81,10 @@ class _HomeState extends State<Home> {
     
     return Scaffold(
       appBar: AppBar(
-        title: Text("Home"),
+        title: const Text("Home"),
         centerTitle: true,
         elevation: 0.0,
-        leading: CircleAvatar(backgroundImage: AssetImage('assets/logo.jpg'),),
+        leading: const CircleAvatar(backgroundImage: AssetImage('assets/logo.jpg'),),
       ),
       body: ListView(
         children:[ Padding(
@@ -94,7 +94,6 @@ class _HomeState extends State<Home> {
               Center(
                 child: Stack(children: [
                   CarouselSlider.builder(
-                    carouselController: controller,
                       itemCount: sliderImages.length,
                       itemBuilder: (context, index, realIndex) {
                         final sliderImage = sliderImages[index];
@@ -107,14 +106,14 @@ class _HomeState extends State<Home> {
                           
                           onPageChanged: ((index, reason) =>
                               setState(() => activateIndex = index)),
-                          autoPlayInterval: Duration(seconds: 2))),
-                  Container(child: buildIndicator(), alignment: Alignment.center, padding: EdgeInsets.symmetric(vertical: 10),),
+                          autoPlayInterval: const Duration(seconds: 2))),
+                  Container(alignment: Alignment.center, padding: const EdgeInsets.symmetric(vertical: 10),child: buildIndicator(),),
                 ]),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     "Mammals",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
@@ -122,7 +121,7 @@ class _HomeState extends State<Home> {
                     Navigator.push(context, MaterialPageRoute(builder: (context) {
           return All_animals();
         }));
-                  }, child: Text("See All")),
+                  }, child: const Text("See All")),
                 ],
               ),
               SizedBox(
@@ -131,23 +130,23 @@ class _HomeState extends State<Home> {
                   scrollDirection: Axis.horizontal,
                   children: <Widget>[
                     itemBuilder("assets/lion-zoo.jpg", "lion"),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     itemBuilder("assets/elephant.jpg", "elephant"),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     itemBuilder("assets/monkey.jpg", "monkey"),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     itemBuilder("assets/zebra.jpg", "zebra"),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     itemBuilder("assets/graff.jpg", "graff"),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     itemBuilder("assets/bear.jpg", "bear"),
@@ -161,7 +160,7 @@ class _HomeState extends State<Home> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  const Text(
                     "Birds",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),

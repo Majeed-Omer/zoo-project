@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:zoo/features/zoo_folder/Services/globals.dart';
+import 'globals.dart';
 
 class AuthServices {
   static Future<http.Response> register(

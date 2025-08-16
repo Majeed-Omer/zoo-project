@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -5,11 +7,11 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:zoo/features/zoo_folder/presentation/Screens/login_screen.dart';
-import 'package:zoo/features/zoo_folder/Services/auth_services.dart';
-import 'package:zoo/features/zoo_folder/Services/globals.dart';
-import 'package:zoo/features/zoo_folder/presentation/Widgets/rounded_button.dart';
-import 'package:zoo/features/zoo_folder/presentation/Widgets/wrapper.dart';
+import 'login_screen.dart';
+import '../../Services/auth_services.dart';
+import '../../Services/globals.dart';
+import '../Widgets/rounded_button.dart';
+import '../Widgets/wrapper.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({Key? key}) : super(key: key);
@@ -59,31 +61,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     final h = MediaQuery.of(context).size.height;
     final w = MediaQuery.of(context).size.width;
-    final f = MediaQuery.of(context).textScaleFactor;
 
-    googleLogin() async {
-      print("mom");
-      GoogleSignIn _googleSignIn = GoogleSignIn();
-      try {
-        var user = await _googleSignIn.signIn();
+    // googleLogin() async {
+    //   GoogleSignIn googleSignIn = GoogleSignIn();
+    //   try {
+    //     var user = await googleSignIn.signIn();
 
-        if (user == null) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text("Sign in Failed")));
-        } else {
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) => Wrapper(
-                    email: user.email,
-                    image: user.photoUrl,
-                    name: user.displayName!,
-                  )));
-        }
+    //     if (user == null) {
+    //       ScaffoldMessenger.of(context)
+    //           .showSnackBar(SnackBar(content: Text("Sign in Failed")));
+    //     } else {
+    //       Navigator.of(context).pushReplacement(MaterialPageRoute(
+    //           builder: (context) => Wrapper(
+    //                 email: user.email,
+    //                 image: user.photoUrl,
+    //                 name: user.displayName!,
+    //               )));
+    //     }
 
-        print(user);
-      } catch (error) {
-        print(error);
-      }
-    }
+    //   // ignore: empty_catches
+    //   } catch (error) {
+    //   }
+    // }
 
     return Scaffold(
       appBar: AppBar(
@@ -186,21 +185,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: Image.asset('assets/google_image.png',
                         width: w / 10, height: h / 10),
                     onTap: () {
-                      googleLogin();
+                      // googleLogin();
                     },
                   ),
                   InkWell(
                     child: Image.asset('assets/Instagram_image.jpg',
                         width: w / 10, height: h / 10),
                     onTap: () {
-                      print("mom");
                     },
                   ),
                   InkWell(
                     child: Image.asset('assets/twitter_image.png',
                         width: w / 10, height: h / 10),
                     onTap: () {
-                      print("mom");
                     },
                   ),
                 ],

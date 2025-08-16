@@ -3,45 +3,49 @@ import 'package:flutter/material.dart';
 class AppThemes {
   static final appThemeData = {
     AppTheme.lightTheme: ThemeData(
-      
       brightness: Brightness.light,
       primarySwatch: Colors.green,
-      backgroundColor: Colors.white,
-      appBarTheme: AppBarTheme(
+      scaffoldBackgroundColor: Colors.white,
+      appBarTheme: const AppBarTheme(
         backgroundColor: Colors.green,
         iconTheme: IconThemeData(color: Colors.white),
         titleTextStyle: TextStyle(
           color: Colors.white,
-          fontSize: 20
-        )
+          fontSize: 20,
+        ),
       ),
-      textTheme: TextTheme(
-        bodyText1: TextStyle(
+      textTheme: const TextTheme(
+        bodyLarge: TextStyle(
           color: Colors.black,
         ),
       ),
     ),
     AppTheme.darkTheme: ThemeData(
       brightness: Brightness.dark,
-      bottomAppBarColor: Colors.green,
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         backgroundColor: Colors.grey,
         iconTheme: IconThemeData(color: Colors.black),
         titleTextStyle: TextStyle(
           color: Colors.black,
-          fontSize: 20
-        )
+          fontSize: 20,
+        ),
       ),
-      primarySwatch: Colors.grey,
-      backgroundColor: Colors.black,
-      textTheme: TextTheme(
-        bodyText1: TextStyle(
+      bottomAppBarTheme: const BottomAppBarThemeData(
+        color: Colors.green,
+      ),
+      textTheme: const TextTheme(
+        bodyLarge: TextStyle(
           color: Colors.white,
         ),
       ),
-    )
+      colorScheme: ColorScheme.fromSwatch(
+        primarySwatch: Colors.grey,
+        brightness: Brightness.dark, // ✅ fixes mismatch
+      ).copyWith(surface: Colors.black),
+    ),
   };
 }
+
 enum AppTheme {
   lightTheme,
   darkTheme,

@@ -20,7 +20,7 @@ class _SwitchExampleState extends State<SwitchExample> {
         return 
     Switch(
       value: mode,
-      activeColor: Colors.red,
+      activeThumbColor: Colors.red,
       onChanged: (bool value) {
         setState(() {
           mode = value;

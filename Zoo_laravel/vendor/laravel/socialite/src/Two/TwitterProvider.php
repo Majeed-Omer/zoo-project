@@ -2,16 +2,17 @@
 
 namespace Laravel\Socialite\Two;
 
+use GuzzleHttp\RequestOptions;
 use Illuminate\Support\Arr;
 
-class TwitterProvider extends AbstractProvider
+class TwitterProvider extends AbstractProvider implements ProviderInterface
 {
     /**
      * The scopes being requested.
      *
      * @var array
      */
-    protected $scopes = ['users.read', 'tweet.read'];
+    protected $scopes = ['users.read', 'users.email', 'tweet.read'];
 
     /**
      * Indicates if PKCE should be used.
@@ -26,6 +27,13 @@ class TwitterProvider extends AbstractProvider
      * @var string
      */
     protected $scopeSeparator = ' ';
+
+    /**
+     * The query encoding format.
+     *
+     * @var int
+     */
+    protected $encodingType = PHP_QUERY_RFC3986;
 
     /**
      * {@inheritdoc}
@@ -49,8 +57,8 @@ class TwitterProvider extends AbstractProvider
     protected function getUserByToken($token)
     {
         $response = $this->getHttpClient()->get('https://api.twitter.com/2/users/me', [
-            'headers' => ['Authorization' => 'Bearer '.$token],
-            'query' => ['user.fields' => 'profile_image_url'],
+            RequestOptions::HEADERS => ['Authorization' => 'Bearer '.$token],
+            RequestOptions::QUERY => ['user.fields' => 'profile_image_url,confirmed_email'],
         ]);
 
         return Arr::get(json_decode($response->getBody(), true), 'data');
@@ -63,6 +71,7 @@ class TwitterProvider extends AbstractProvider
     {
         return (new User)->setRaw($user)->map([
             'id' => $user['id'],
+            'email' => $user['confirmed_email'] ?? null,
             'nickname' => $user['username'],
             'name' => $user['name'],
             'avatar' => $user['profile_image_url'],
@@ -75,11 +84,43 @@ class TwitterProvider extends AbstractProvider
     public function getAccessTokenResponse($code)
     {
         $response = $this->getHttpClient()->post($this->getTokenUrl(), [
-            'headers' => ['Accept' => 'application/json'],
-            'auth' => [$this->clientId, $this->clientSecret],
-            'form_params' => $this->getTokenFields($code),
+            RequestOptions::HEADERS => ['Accept' => 'application/json'],
+            RequestOptions::AUTH => [$this->clientId, $this->clientSecret],
+            RequestOptions::FORM_PARAMS => $this->getTokenFields($code),
         ]);
 
         return json_decode($response->getBody(), true);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getRefreshTokenResponse($refreshToken)
+    {
+        $response = $this->getHttpClient()->post($this->getTokenUrl(), [
+            RequestOptions::HEADERS => ['Accept' => 'application/json'],
+            RequestOptions::AUTH => [$this->clientId, $this->clientSecret],
+            RequestOptions::FORM_PARAMS => [
+                'grant_type' => 'refresh_token',
+                'refresh_token' => $refreshToken,
+                'client_id' => $this->clientId,
+            ],
+        ]);
+
+        return json_decode($response->getBody(), true);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getCodeFields($state = null)
+    {
+        $fields = parent::getCodeFields($state);
+
+        if ($this->isStateless()) {
+            $fields['state'] = 'state';
+        }
+
+        return $fields;
     }
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:zoo/features/zoo_folder/Services/Services_crud.dart';
+import '../../Services/Services_crud.dart';
 import '../../data/Models/Ticket.dart';
 
 class ticket_sell extends StatefulWidget {

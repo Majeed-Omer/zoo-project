@@ -2,9 +2,9 @@
 import 'package:fluid_bottom_nav_bar/fluid_bottom_nav_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:zoo/features/zoo_folder/presentation/Screens/home_screen.dart';
-import 'package:zoo/features/zoo_folder/presentation/Screens/ticket_sell.dart';
-import 'package:zoo/features/zoo_folder/presentation/Screens/account_screen.dart';
+import '../Screens/home_screen.dart';
+import '../Screens/ticket_sell.dart';
+import '../Screens/account_screen.dart';
 
 class Wrapper extends StatefulWidget {
   final String name;

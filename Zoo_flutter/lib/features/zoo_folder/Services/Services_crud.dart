@@ -4,11 +4,9 @@ import '../data/Models/Ticket.dart';
 
 class Services {
   static const ROOT = 'http://192.168.2.107:8000/api/tickets/';
-  static const _CREATE_TABLE_ACTION = 'CREATE_TABLE';
   static const _GET_ALL_ACTION = 'GET_ALL';
   static const _ADD_EMP_ACTION = 'ADD_EMP';
   static const _UPDATE_EMP_ACTION = 'UPDATE_EMP';
-  static const _DELETE_EMP_ACTION = 'DELETE_EMP';
 
 
   static Future<List<Ticket>> getTickets() async {
